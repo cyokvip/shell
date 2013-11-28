@@ -26,15 +26,16 @@ fi
 tmpfile="`mktemp`"
 touch -t ${bak_date}0000 $tmpfile
 cd $src_folder
-#不排除
-#find . -name "*.php" -newer $tmpfile -exec tar rvf $bak_file {} \; 
-#排除svn
-#find . -path "./svn" -prune -o -name "*.php" -newer $tmpfile -exec tar rvf $bak_file {} \;
-#排除多个目录
-#find . \( -path "./svn" -o -path "./admin.php" -o -path "./index.php" -o -path "./mc.php" -o -path "./tq.config.inc.php" -o -path "./mcAssets" -o -path "./mcImages" -o -path "./mcSounds" -o -path "./mcThumbs" -o -path "./mcThumbsB" \) -prune -o -name "*.php" -newer $tmpfile -exec tar rvf $bak_file {} \;
-#正则查找指定匹配并且排除指定文件
-find . ! -name "PConfig.php" -regex '.*\.php\|.*\.css' -newer $tmpfile -exec tar rvf $bak_file {} \;
+
+find . -name "*.php" -maxdepth 1 -newer $tmpfile -exec tar rvf $bak_file {} \;
+find ./application ! -name "PConfig.php" -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
+find ./public ! -name "PConfig.php" -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
+find ./Weidongman ! -name "PConfig.php" -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
+find ./sdk ! -name "PConfig.php" -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
+find ./lib ! -name "PConfig.php" -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
+find ./libW ! -name "PConfig.php" -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
+
+
 rm $tmpfile
- 
 echo "backup file: $bak_file"
 ls -l $bak_file
