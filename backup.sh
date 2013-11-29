@@ -27,13 +27,13 @@ tmpfile="`mktemp`"
 touch -t ${bak_date}0000 $tmpfile
 cd $src_folder
 
-find . -name "*.php" -maxdepth 1 -newer $tmpfile -exec tar rvf $bak_file {} \;
-find ./application ! -name "PConfig.php" -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
-find ./public ! -name "PConfig.php" -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
-find ./Weidongman ! -name "PConfig.php" -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
-find ./sdk ! -name "PConfig.php" -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
-find ./lib ! -name "PConfig.php" -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
-find ./libW ! -name "PConfig.php" -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
+find . ! -name "tq.config.inc.php" -regex '.*\.php' -maxdepth 1 -newer $tmpfile -exec tar rvf $bak_file {} \;
+find ./application  -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
+find ./public  -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
+find ./Weidongman ! -name "PConfig.php" ! -name "Config.js" -regex '.*\.js\|.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
+find ./sdk -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
+find ./lib -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
+find ./libW  -regex '.*\.php\|.*\.css\|.*\.html\|.*\.jpg\|.*\.png\|.*\.gif' -newer $tmpfile -exec tar rvf $bak_file {} \;
 
 
 rm $tmpfile
